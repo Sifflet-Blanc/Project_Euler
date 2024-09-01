@@ -27,3 +27,17 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+#Java
+.idea/
+.metadata/
+.setting/
+doc/
+bin/
+
+*.class
+
+*.log
+
+*.jar
+*.zip
