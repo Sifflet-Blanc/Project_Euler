@@ -29,6 +29,7 @@ setup.log
 _opam/
 
 #Java
+Project_euler/
 .idea/
 .metadata/
 .setting/
@@ -41,3 +42,5 @@ bin/
 
 *.jar
 *.zip
+*.iml
+*.xml
