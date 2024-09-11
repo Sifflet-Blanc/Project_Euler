@@ -35,6 +35,8 @@ Project_euler/
 .setting/
 doc/
 bin/
+.project 
+.classpath
 
 *.class
 
