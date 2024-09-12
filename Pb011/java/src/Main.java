@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-	public int[][] tab;
+	private int[][] tab;
 	private int calcsize;
     private int max = 0;
 
@@ -19,13 +19,12 @@ public class Main {
                 line = ligne.split(" ");
                 for(int j = 0; j < line.length; j++) {
                 	tab[i][j] = Integer.parseInt(line[j]);
-                	System.out.print(tab[i][j]+" ");
                 }
-                System.out.println();
                 i++;
             }
             resolve();
-        } catch (IOException e) {
+        }
+    	catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -107,7 +106,6 @@ public class Main {
 
     public static void main(String[] args){
         Main rep = new Main("../ressource/donnee.txt", 20, 4);
-        System.out.println(rep.diag1Calc(6, 8));
         System.out.println(rep.getMax());
     }
 }
