@@ -30,26 +30,39 @@ let rec in_list (l : int list) (n : int) : bool=
     | [] -> false
     | t::q -> if t == n then true else in_list q n
 
+let rec add_end (n : int) (l : int list) : int list =
+    match l with 
+    | [] -> [n]
+    | t::q -> t :: add_end n q
+
 (*l int list contenant les nombres abundant inferieur*)
-let is_sum_of_two_abundant (n : int) (l : int list) : bool =
-    let rec aux l n invariant =
-        match l with
-        | [] -> false
-        | t::q -> if in_list invariant (n-t) then
-                    true
-                else aux q n invariant in
-    aux l n l
+let rec is_sum_of_two_abundant (n : int) (l : int list) : bool =
+    match l with
+    | [] -> false
+    | t::q -> if t > n/2 then false 
+        else begin 
+            if in_list l (n-t) then
+                true
+            else is_sum_of_two_abundant n q
+        end 
    
-let sum_of_non_abundant_sum : int =
+let sum_of_number_witch_isnt_sum_of_two_abundant : int =
     let rep = ref 0 in
     let l_of_abundant = ref [] in
     for i = 1 to 28123 do
+    (*for i = 1 to 24 do*)
+        if i mod 1000 == 0 then begin 
+            ignore (Sys.command "clear");
+            Printf.printf "%d/28\n" (i/1000);
+            flush stdout
+        end;
         if (is_abundant i) then
-            l_of_abundant := i:: !l_of_abundant;
+            l_of_abundant := add_end i !l_of_abundant;
         if not (is_sum_of_two_abundant i !l_of_abundant) then
             rep := !rep + i
     done;
+    ignore (Sys.command "clear");
     !rep
 
 let _ =
-    Printf.printf "%d\n" (sum_of_non_abundant_sum)
+    Printf.printf "%d\n" (sum_of_number_witch_isnt_sum_of_two_abundant)
