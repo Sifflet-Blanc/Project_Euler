@@ -26,8 +26,7 @@ let est_premier (l : 'a list2) n : bool =
 	let rec aux m n =
 		match m with 
 		| None -> true
-		| Some tmp -> if n mod tmp.content != 0 then 
-									true && aux tmp.next n
+		| Some tmp -> if n mod tmp.content != 0 then aux tmp.next n
 								else false in
 	aux l.first n
 
