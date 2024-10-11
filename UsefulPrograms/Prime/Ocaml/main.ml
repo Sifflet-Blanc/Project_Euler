@@ -27,24 +27,25 @@ let est_premier (l : 'a list2) n : bool =
 		match m with 
 		| None -> true
 		| Some tmp -> if n mod tmp.content != 0 then aux tmp.next n
-									else false in
+								else false in
 	aux l.first n
 
-let somme_des_premier_inf_a_n n : int =
-  let rec aux i l rep =
-    if i >= n then rep 
-    else
-    begin
-      if not (est_premier l i) then
-        aux (i+1) l rep
-      else
-      begin
-        setLast l i;
-        aux (i+1) l (rep+i)
-      end
-    end in
-  aux 2 {first = None; last = None} 0
+let n_ieme_premier n : int =
+	let rec aux i l n = 
+		if not (est_premier l i) then 
+			aux (i+1) l n
+		else
+		begin 
+			if n <= 1 then 
+				i
+			else
+			begin
+				setLast l i;
+				aux (i+1) l (n-1)
+			end
+		end in
+	aux 2 {first = None; last = None} n
 
 
-let _ =
-  Printf.printf "%d\n" (somme_des_premier_inf_a_n 2000000)
+let _ = 
+	Printf.printf "%d\n" (n_ieme_premier 10001)
