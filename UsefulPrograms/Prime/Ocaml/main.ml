@@ -9,16 +9,15 @@ let setfirst (l : 'a list2) (el : 'a) =
   let ele = { content = el; next = l.first; prev = None } in
   (match l.first with
    | Some f -> f.prev <- Some ele
-   | None -> l.first <- Some ele; l.last <- Some ele);
+   | None -> l.last <- Some ele);
   l.first <- Some ele
 
 let setLast (l : 'a list2) (el : 'a) =
   let ele = { content = el; next = None; prev = l.last } in
   (match l.last with
    | Some f -> f.next <- Some ele
-   | None -> l.first <- Some ele; l.last <- Some ele);
+   | None -> l.first <- Some ele;);
   l.last <- Some ele
-
 
 (*regarde si n est premier avec n plus grand que tout les elts de l 
 	qui sont les nombres premier inférieur*)
