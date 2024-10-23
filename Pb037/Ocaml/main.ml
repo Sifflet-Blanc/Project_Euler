@@ -30,26 +30,23 @@ let est_premier (l : 'a list2) n : bool =
 								else false in
 	aux l.first n
 
-let circular_next n pow : int =
-	let tmp = n mod 10 in 
-	(n - tmp) / 10 + tmp * pow
-
-let circular_prime h n : int = 
-	(*pow ne sert que dans circular_next pour eviter de le recalculer*)
+let rec left_to_right h n : bool =
 	let pow = (Float.to_int (Float.pow 10. (Float.floor (Float.log10 (Float.of_int n))))) in
-	let rec aux i acc = 
-		if n == i then 
-			match Hashtbl.find_opt h i with
-			| Some _ -> acc
-			| None -> 0
-		else
-			match Hashtbl.find_opt h i with
-			| Some _ -> aux (circular_next i pow) (acc+1)
-			| None -> 0
-		in
-	aux (circular_next n pow) 1
+	let tmp = n mod pow in
+	match Hashtbl.find_opt h tmp with
+	| Some _ -> if tmp < 10 then true else left_to_right h tmp
+	| None -> false
 
-let nb_circular_primes_under_n n : int =
+let rec right_to_left h n : bool =
+	let tmp = n/10 in
+	match Hashtbl.find_opt h tmp with
+	| Some _ -> if tmp < 10 then true else right_to_left h tmp
+	| None -> false
+
+let truncatable_prime h n : bool = 
+	(left_to_right h n) && right_to_left h n
+
+let sum_truncatable_prime_under_n n : int =
 	let rec aux i l h acc = 
 		if not (est_premier l i) then 
 			aux (i+1) l h acc
@@ -61,9 +58,8 @@ let nb_circular_primes_under_n n : int =
 			begin
 				setLast l i;
 				Hashtbl.add h i true;
-				let tmp = circular_prime h i in
-				if tmp <> 0 then begin
-					aux (i+1) l h (acc+tmp)
+				if truncatable_prime h i then begin
+					aux (i+1) l h (acc+i)
 				end
 				else
 					aux (i+1) l h acc
@@ -73,4 +69,4 @@ let nb_circular_primes_under_n n : int =
 
 
 let _ = 
-	Printf.printf "%d\n" (nb_circular_primes_under_n 1000000)
+	Printf.printf "%d\n" (sum_truncatable_prime_under_n 1000000)
