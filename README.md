@@ -5,4 +5,4 @@ Don't hesitate to contact me if you want to become frind on project euler or if 
 
 Copyright © 2024 Project_Euler. All rights reserved. No warranty.<br />
 This code is provided for reference only. You may republish any of this code verbatim with author and URL info intact.<br />
-You need written permission from the author to make modifications to the code, include parts into your own work, etc.
+Only personal use of this code is allowed
